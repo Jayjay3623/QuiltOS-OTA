@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Jayjay3623/QuiltOS-OTA/main/schema/update.schema.json",
+  "title": "QuiltOS OTA response",
+  "type": "object",
+  "required": ["response"],
+  "properties": {
+    "response": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["datetime", "filename", "id", "size", "url", "version"],
+        "properties": {
+          "datetime": { "type": "integer", "minimum": 1 },
+          "filename": { "type": "string", "minLength": 1 },
+          "id": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+          "size": { "type": "integer", "minimum": 1 },
+          "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+          "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$" },
+          "channel": { "const": "creator" },
+          "device": { "const": "bluejay" },
+          "sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+          "changelog_url": { "type": "string", "format": "uri" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
