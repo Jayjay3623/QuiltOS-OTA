@@ -1,34 +1,49 @@
-# QuiltOS Creator 0.1.9 — Changelog
+# QuiltOS Creator 0.2.1 — Pixel 6a
 
-Delivered as an incremental update from 0.1.8 (bluejay / Pixel 6a).
+Delivered as a sequential incremental update from QuiltOS 0.2.0. Devices on
+0.1.9 must install 0.2.0 first.
 
-## Fixed: in-device OTA downloads
+## What changed
 
-- The updater's download directory `/data/quiltos_updates` was never created on
-  the device, so in-device update downloads could not start ("destination file
-  doesn't exist, can't resume" loop). 0.1.9 creates the directory at boot with
-  the same ownership, permissions, and SELinux label model Android already uses
-  for OTA packages (`ota_package_file`, the same approach LineageOS uses for
-  `/data/lineageos_updates`).
-- No security posture change: SELinux stays enforcing, and the updater and
-  update_engine use access rules that already existed in the shipped policy.
-  Nothing was disabled or bypassed.
+- First boot now visibly belongs to QuiltOS: “Welcome to QuiltOS”, centred
+  Start, lower Accessibility and Emergency Call actions, no first-page Skip,
+  a subtle animated Quilt gradient, and centred progress state on applicable
+  steps while retaining the established Android setup graph.
+- An early wallpaper step offers bundled 1080×2400 Light Quilt and Dark Quilt
+  wallpapers. The choice is persisted and applied through Android's
+  `WallpaperManager`; Light Quilt remains the default.
+- QuiltOS Settings now provides an honest guided Magisk workflow. Manager
+  installation is reported separately from runtime root. **Root active** is
+  shown only when Magisk answers and a live root shell reports `uid=0`.
+- Enabling root requires selecting the matching Android boot image, passing
+  local device/header/size checks, comparing its published SHA-256, patching a
+  copy in Magisk, and performing an explicit reboot-required bootloader step.
+  QuiltOS does not patch or flash the phone automatically.
+- Disabling root guides restoration of the exact matching stock image and does
+  not report success until the post-reboot runtime probe finds no Magisk root.
+- Iconify remains optional, clearly states its root-backend requirement, and is
+  available later in QuiltOS Settings. Setup never enables root automatically.
+- The fixed updater storage path, non-crashing update-engine handling, and
+  QuiltOS 0.2.0 privacy/settings changes remain present.
 
-## Fixed: Termux breaking after updates
+## Matching stock boot image
 
-- The bundled Termux app was packaged with a flag (`preprocessed`) that stopped
-  the platform from extracting its native bootstrap library, so Termux could
-  crash with a dlopen failure after an OTA. The flag is removed; the built
-  package now contains `libtermux-bootstrap.so` correctly.
+- File: `quiltos-boot-1784465756.img`
+- SHA-256: `d091c0290a1c965fc14297d8e524b47f40605bdf47cd736edfb9191d7206d512`
+- Use only with QuiltOS 0.2.1 build incremental `1784465756` on bluejay.
 
-## Notes
+## Validation scope
 
-- This is an incremental over 0.1.8; install 0.1.8 first if you are on an older
-  build.
-- A device already on 0.1.7/0.1.8 still has the broken updater, so this one
-  update must be installed by sideloading (or via a full image). From 0.1.9
-  onward, in-device OTA downloads are expected to work.
-- The fix is verified in source and in the built image (init script, SELinux
-  file context, and permissions chain all confirmed), but it has **not yet been
-  smoke-tested on a physical phone**. If the updater still misbehaves on
-  hardware, report it and it will be fixed in a point update.
+- Component build: passed for BlissSetupWizard and Settings.
+- Full bluejay user build: passed, including image/AVB and full OTA packaging.
+- OTA: generated only from sealed 0.2.0 incremental `1784424837`; machine
+  inspection passed ZIP integrity, bluejay assertion, A/B payload, exact base,
+  post identity, and filename gates.
+- Source/resource asserted: actual wizard script references Quilt pages; both
+  wallpapers are packaged at 1080×2400; root active requires `su -c id` with
+  `uid=0`; no preference is used as active-root proof; updater safeguards and
+  touched Quilt branding are present.
+- Device-tested: not tested in this unattended environment.
+- Emulator-tested: not tested.
+- Runtime UI layout, animation, wallpaper application, Magisk patch/restore,
+  reboot transitions, and Iconify application remain untested on hardware.
