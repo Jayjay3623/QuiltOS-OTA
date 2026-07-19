@@ -1,44 +1,34 @@
-# QuiltOS Creator 0.2.0 — Changelog
+# QuiltOS Creator 0.1.9 — Changelog
 
-Delivered as an incremental update from 0.1.9 (bluejay / Pixel 6a).
+Delivered as an incremental update from 0.1.8 (bluejay / Pixel 6a).
 
-## Fixed: Privacy area crash
+## Fixed: in-device OTA downloads
 
-- Opening the QuiltOS Privacy pages could crash Settings. Root cause: the
-  Privacy Guard grid and Permission timeline screens embedded a Material
-  toolbar that depends on AppCompat/Material theme attributes, which do not
-  exist in the platform theme Settings pages run under — the screen crashed
-  the moment it was opened. Those screens now use the same plain layout idiom
-  as the rest of the QuiltOS settings (the system-provided app bar handles the
-  title and back navigation), and the timeline cards were rebuilt the same way.
-- Camera/microphone kill-switch actions now report the correct source
-  ("Settings") to the system's sensor-privacy service.
+- The updater's download directory `/data/quiltos_updates` was never created on
+  the device, so in-device update downloads could not start ("destination file
+  doesn't exist, can't resume" loop). 0.1.9 creates the directory at boot with
+  the same ownership, permissions, and SELinux label model Android already uses
+  for OTA packages (`ota_package_file`, the same approach LineageOS uses for
+  `/data/lineageos_updates`).
+- No security posture change: SELinux stays enforcing, and the updater and
+  update_engine use access rules that already existed in the shipped policy.
+  Nothing was disabled or bypassed.
 
-## Privacy pages audited
+## Fixed: Termux breaking after updates
 
-- Every QuiltOS privacy page was audited for invalid platform APIs, missing
-  resources, null preferences, and lifecycle issues. All surviving controls
-  either perform their stated action (sensor kill switches, captive-portal
-  switch) or link to the authoritative platform setting (network privacy,
-  camera/mic indicators, clipboard). No control was hidden or removed.
-
-## New: Pixel Call Screen readiness (honest)
-
-- A Pixel Call Screening readiness page (Settings → QuiltOS → About) explains
-  truthfully (this is guidance for the official feature, not a redesigned phone
-  calling or incoming-call screen):
-  the official Google Phone app, its support library, and the Pixel 6a feature
-  declarations all ship in QuiltOS — nothing more is needed on the ROM side.
-  Whether Call Screen actually appears is decided by Google's server-side
-  provisioning (device certification, account language/region, carrier).
-  QuiltOS does not spoof device identity, boot state, or integrity signals to
-  force it, so there is no toggle — the page links to the Google Phone app's
-  own settings, which are the authoritative place to check.
+- The bundled Termux app was packaged with a flag (`preprocessed`) that stopped
+  the platform from extracting its native bootstrap library, so Termux could
+  crash with a dlopen failure after an OTA. The flag is removed; the built
+  package now contains `libtermux-bootstrap.so` correctly.
 
 ## Notes
 
-- This is an incremental over 0.1.9. Devices on 0.1.8 or older must first
-  sideload 0.1.9 (its updater fix is what makes in-device OTA work at all).
-- The crash fix is verified in source and by rebuild; like 0.1.9, it has not
-  yet been smoke-tested on a physical phone. If anything still misbehaves,
-  report it and it will be fixed in a point update.
+- This is an incremental over 0.1.8; install 0.1.8 first if you are on an older
+  build.
+- A device already on 0.1.7/0.1.8 still has the broken updater, so this one
+  update must be installed by sideloading (or via a full image). From 0.1.9
+  onward, in-device OTA downloads are expected to work.
+- The fix is verified in source and in the built image (init script, SELinux
+  file context, and permissions chain all confirmed), but it has **not yet been
+  smoke-tested on a physical phone**. If the updater still misbehaves on
+  hardware, report it and it will be fixed in a point update.
