@@ -1,10 +1,9 @@
-# QuiltOS 0.2.6 — Assistant Repair
+# QuiltOS 0.2.7 — Branding and polish
 
-- Rebuilt Quilt Assistant as a stable, permission-safe system component.
-- Added clear local-assistant capability status instead of claiming unavailable model support.
-- Restricted Assistant shortcuts to visible Android Settings pages; Android remains responsible for user confirmation.
-- Removed broad privileged permissions, silent setting changes, background collection, and incompatible model downloads.
-- Fixed Assistant launch, message-list rendering, resources, and manifest declarations.
-- Removed the global missing-dependency workaround and verified Quilt Assistant, Settings, and the complete Bluejay ROM build.
-
-Quilt Assistant in this release is a local Settings navigator. On-device generative inference remains disabled until QuiltOS has a verified ExecuTorch `.pte` model, matching tokenizer, and provenance checks.
+- Replaced audited Blissify and Bliss labels with QuiltOS across Settings, About Phone, and the Australian English setup flow.
+- Added a QuiltOS quilt-mark icon to Settings, About Phone, and the customization hub.
+- Restored polished labels for appearance, status bar, quick settings, lock screen, gestures, buttons, privacy, and system controls.
+- Replaced generated placeholder text throughout QuiltOS settings.
+- Refined Quilt Assistant, Quilt Intelligence, Privacy Guard, optional root, Iconify, maintenance, updater, and release-note descriptions.
+- Redirected About QuiltOS to QuiltOS release and platform information instead of upstream project information.
+- Preserved internal compatibility identifiers required for reliable incremental updates.
