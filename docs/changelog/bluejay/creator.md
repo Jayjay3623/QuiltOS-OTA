@@ -1,35 +1,25 @@
-# QuiltOS 0.3.1 - Real features, not new toggles
+# QuiltOS 0.3.2 - Duplicate Device Intelligence package removed
 
-Finalized after focused component builds, a complete device build, exact-base
-incremental generation, and machine inspection of the signed OTA.
+This is a maintenance release. It does not add new features.
 
-This release doesn't add new code from other ROMs. It connects real,
-already-built customization and privacy screens that were shipping inside
-QuiltOS but were never reachable from Settings, and removes one piece of dead
-duplicate code found during the audit.
+Every QuiltOS build shipped to date (0.1.8 through 0.3.1) installed the
+Google Device Intelligence Network component **twice**: once as the
+build-matched copy from the bluejay vendor tree, and once as the generic
+copy pulled in by full GApps, under names that Soong treated as distinct
+packages. Both 23 MB copies were present in `product/priv-app/` on every
+release. 0.3.2 removes the redundant generic copy; only the build-matched
+copy is installed, saving roughly 23 MB and removing a source of package
+duplication.
 
-- **Diagnostics reporting is now visible and controllable.** QuiltOS has been
-  uploading an anonymous, hashed device ID, model, mod version, country, and
-  carrier once a day since early builds, with no on/off switch anywhere in
-  Settings. Quilt Privacy Guard now has a Diagnostics reporting card that
-  opens the real control for it. The collection default has not been changed
-  by this release — it is still enabled until you turn it off — but you can
-  now see it and turn it off.
-- **Charging sounds** are now reachable from Quilt System settings:
-  independent wired/wireless charging tone and vibration controls.
-- **Display rotation** is now reachable from Quilt Display settings: choose
-  which of the four orientations auto-rotate is allowed to use, instead of
-  the single on/off toggle.
-- **Blissify's community credits page** — team and project links for
-  BlissRoms and BlissOS, with a live-fetched roster and a static fallback —
-  is now linked from About QuiltOS instead of sitting unreachable.
-- Removed a dead duplicate "Input Buttons" screen that had no working entry
-  point and would only have confused anyone who found it; the real Buttons
-  entry in Quilt Input already covers the same ground.
-- Audited three additional dynamic Settings tiles (LiveDisplay, Trust
-  interface, Profiles) that AOSP's own tile-injection mechanism should already
-  surface on Display, Privacy, and System; confirmed their manifest
-  declarations are correct and unaffected by the 0.3.0 dashboard rebuild.
+Nothing else has changed. No screens, defaults, or behavior are different
+in this release, and nothing in it touches root state, Play Integrity,
+verified boot, or any other security gate. QuiltOS remains unrooted by
+default.
 
-Nothing in this release touches root state, Play Integrity, verified boot, or
-any other security gate. QuiltOS remains unrooted by default.
+QuiltOS's Android 17 upgrade remains in progress in a separate workstream
+and is not part of this release. Android 17 is not yet buildable on the
+current upstream LineageOS branch, and BlissROM does not yet have an
+Android 17 branch to build the QuiltOS feature set on top of; shipping it
+today would mean losing QuiltOS's existing customization and privacy
+features, not gaining new ones. This device stays on the current,
+fully-featured Android 16 base until that work is ready.
