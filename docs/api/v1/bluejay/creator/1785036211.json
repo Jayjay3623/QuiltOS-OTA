@@ -1,0 +1,19 @@
+{
+  "response": [
+    {
+      "changelog_url": "https://github.com/Jayjay3623/QuiltOS-OTA/blob/main/docs/changelog/bluejay/creator.md",
+      "channel": "creator",
+      "datetime": 1785136545,
+      "device": "bluejay",
+      "filename": "QuiltOS-0.3.1-to-0.3.2-bluejay-incremental.zip",
+      "id": "00526c2231cff9354317d55708d73950652e5bd2143071ced4f851a87f2ddd8e",
+      "post_incremental": "1785136545",
+      "pre_incremental": "1785036211",
+      "romtype": "creator",
+      "sha256": "00526c2231cff9354317d55708d73950652e5bd2143071ced4f851a87f2ddd8e",
+      "size": 777522,
+      "url": "https://github.com/Jayjay3623/QuiltOS-OTA/releases/download/qos-0.3.2-bluejay-00526c2231cf/QuiltOS-0.3.1-to-0.3.2-bluejay-incremental.zip",
+      "version": "0.3.2"
+    }
+  ]
+}
