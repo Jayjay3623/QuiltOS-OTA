@@ -1,0 +1,28 @@
+name: Archive verified cheetah OTA
+on:
+  push:
+    paths:
+      - '.github/workflows/archive-cheetah-1792088042.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: archive-cheetah-1792088042
+  cancel-in-progress: false
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Download and independently verify signed OTA
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          asset=quilt-cheetah-1792088042.zip
+          curl --fail --location --retry 6 --retry-delay 10 --connect-timeout 30 --max-time 2100 -o "$asset" 'https://management-franchise-spotlight-montana.trycloudflare.com/ota/4a5d09948fa128cabf69dd478c6621b0add1e59b589507332d7c34c31358c897/quilt-cheetah-1792088042.zip'
+          test "$(stat -c%s "$asset")" = 2026849181
+          echo "4a5d09948fa128cabf69dd478c6621b0add1e59b589507332d7c34c31358c897  $asset" | sha256sum --check
+          printf '%s\n' '4a5d09948fa128cabf69dd478c6621b0add1e59b589507332d7c34c31358c897  quilt-cheetah-1792088042.zip' > SHA256SUMS
+          gh release create cheetah-1792088042 "$asset" SHA256SUMS --prerelease --title 'QuiltOS cheetah 1792088042 — experimental signed archive' --notes 'Verified signed no-wipe OTA archive. Experimental Android 17, development keys, SPL 2026-08-01. Runtime reboot recovery and banking acceptance remain unproven. This archive is not offered as a newer update to devices already on 1792088042.'
