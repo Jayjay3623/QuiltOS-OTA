@@ -1,0 +1,8 @@
+{
+  "response": [],
+  "device": "cheetah",
+  "variant": "privacy",
+  "base_incremental": "1792088042",
+  "schema_version": 1,
+  "notes": "No newer verified release is published. Existing installed build is experimental and development-signed."
+}
