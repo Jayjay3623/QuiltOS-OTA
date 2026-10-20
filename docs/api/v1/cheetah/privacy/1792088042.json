@@ -1,8 +1,28 @@
 {
-  "response": [],
+  "schema_version": 1,
   "device": "cheetah",
   "variant": "privacy",
   "base_incremental": "1792088042",
-  "schema_version": 1,
-  "notes": "No newer verified release is published. Existing installed build is experimental and development-signed."
+  "response": [
+    {
+      "device": "cheetah",
+      "variant": "privacy",
+      "base_incremental": "1792088042",
+      "incremental": "1792453691",
+      "no_wipe": true,
+      "sha256": "c20172649884bc0d14f48232eac19fe5b4b9252deb08757be2b0a136f813b9ae",
+      "size": 2026862016,
+      "payload_offset": 5029,
+      "payload_size": 2026853493,
+      "payload_properties": [
+        "FILE_HASH=hlO5ueMbC7lPb8ykuH+CxznVKhQWn8Vo7xdbnS+gBC8=",
+        "FILE_SIZE=2026853493",
+        "METADATA_HASH=oTBiv32jnEfPuA5HRpe1tHwzxVREB2gY9YuhXA6TsqM=",
+        "METADATA_SIZE=162414"
+      ],
+      "url": "https://github.com/Jayjay3623/QuiltOS-OTA/releases/download/cheetah-1792453691/quilt_cheetah-ota.zip",
+      "installation": "user_confirmation",
+      "notes": "Native Quilt Updates; automatic checks and local bug summaries. Install and restart only when you choose. Experimental Android17/development keys."
+    }
+  ]
 }
