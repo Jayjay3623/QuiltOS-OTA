@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "device": "cheetah",
+  "variant": "privacy",
+  "base_incremental": "1792829003",
+  "response": [],
+  "notes": "No newer verified release is published."
+}
