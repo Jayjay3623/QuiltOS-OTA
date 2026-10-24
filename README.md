@@ -5,6 +5,19 @@ designed to be published as `Jayjay3623/QuiltOS-OTA`. The updater reads the
 small JSON manifests directly from `raw.githubusercontent.com`; GitHub Pages is
 optional and may later provide prettier changelog pages.
 
+## Pixel 7 Pro: full Quilt Updater preview
+
+The [cheetah 1792829003 prerelease](https://github.com/Jayjay3623/QuiltOS-OTA/releases/tag/cheetah-1792829003) includes the full updater and a separately installable Settings update.
+
+1. On an existing QuiltOS cheetah privacy build, install **Quilt-Updater-Settings-v39.apk** from that release as an update to the built-in Settings app.
+2. Open **Quilt Updater**, choose **Check for updates**, then **Download update**. Progress shows bytes, percentage, speed and time remaining; downloads can be paused and resumed.
+3. After verification, connect power and reach 50% battery before selecting **Install now**.
+4. Choose when to restart after installation finishes.
+
+The new app reads `docs/api/v2/cheetah/privacy/<installed-build>.json`. Its check/download/install/restart steps are separate. Legacy v1 feeds are unchanged. Automatic checks and private local bug summaries do not automatically install an OS or upload reports.
+
+This is an experimental Android 17 preview signed with development keys. Cloud software, APK, AVB and whole OTA/payload signature checks passed, and GitHub asset SHA-256 digests match the cloud files. Physical phone UI/update-path and long-term reboot stability remain unverified. Banking/contactless are unverified; Google Wallet is unsupported. Do not relock the bootloader. The production release gates described below remain distinct from this experimental preview.
+
 ## Initial setup
 
 1. Create the public repository and push this directory.
