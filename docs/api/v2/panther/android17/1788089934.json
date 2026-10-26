@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "device": "panther",
+  "variant": "android17",
+  "base_incremental": "1788089934",
+  "response": [],
+  "notes": "No newer verified Pixel 7 release is published."
+}
