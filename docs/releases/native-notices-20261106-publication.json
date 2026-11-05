@@ -1,0 +1,76 @@
+{
+  "complete": true,
+  "verified_at_utc": "2026-11-05T23:46:21.721366+00:00",
+  "published_device_releases": 3,
+  "public_matching_source_files": 399,
+  "public_source_catalog_assets": 401,
+  "public_storage_objects_checked": 411,
+  "updater_base_url_confirmed_in_source": "https://raw.githubusercontent.com/Jayjay3623/QuiltOS-OTA/main/docs",
+  "feeds": [
+    {
+      "path": "docs/api/v2/cheetah/privacy/1792829003.json",
+      "url": "https://raw.githubusercontent.com/Jayjay3623/QuiltOS-OTA/main/docs/api/v2/cheetah/privacy/1792829003.json",
+      "complete": true,
+      "offers": [
+        {
+          "device": "cheetah",
+          "target": "1793891372",
+          "url": "https://storage.googleapis.com/quiltos-releases-90894374281/otas/native-notices/quilt-cheetah-1793891372-from-1792829003.zip",
+          "payload_range_verified": true,
+          "sha256": "7741c0200367a6c121afd4757522505dad2df4939ddc77e0d3c69c05bdbe6a64"
+        }
+      ]
+    },
+    {
+      "path": "docs/api/v2/cheetah/privacy/1793891372.json",
+      "url": "https://raw.githubusercontent.com/Jayjay3623/QuiltOS-OTA/main/docs/api/v2/cheetah/privacy/1793891372.json",
+      "complete": true,
+      "offers": []
+    },
+    {
+      "path": "docs/api/v2/panther/android17/1793198660.json",
+      "url": "https://raw.githubusercontent.com/Jayjay3623/QuiltOS-OTA/main/docs/api/v2/panther/android17/1793198660.json",
+      "complete": true,
+      "offers": [
+        {
+          "device": "panther",
+          "target": "1793892852",
+          "url": "https://storage.googleapis.com/quiltos-releases-90894374281/otas/native-notices/quilt-panther-1793892852-from-1793198660.zip",
+          "payload_range_verified": true,
+          "sha256": "0fe8782000eaaab0cba32f39dda98a1c9ba26014175b33539acc8c5aeef88557"
+        }
+      ]
+    },
+    {
+      "path": "docs/api/v2/panther/android17/1793892852.json",
+      "url": "https://raw.githubusercontent.com/Jayjay3623/QuiltOS-OTA/main/docs/api/v2/panther/android17/1793892852.json",
+      "complete": true,
+      "offers": []
+    },
+    {
+      "path": "docs/api/v2/bluejay/creator/1793774474.json",
+      "url": "https://raw.githubusercontent.com/Jayjay3623/QuiltOS-OTA/main/docs/api/v2/bluejay/creator/1793774474.json",
+      "complete": true,
+      "offers": [
+        {
+          "device": "bluejay",
+          "target": "1793896340",
+          "url": "https://storage.googleapis.com/quiltos-releases-90894374281/otas/native-notices/quilt-bluejay-1793896340-from-1793774474.zip",
+          "payload_range_verified": true,
+          "sha256": "405b495073c3fd310cf6760e966e69b5ec62ba95622670712dd7c85f5d3a157a"
+        }
+      ]
+    },
+    {
+      "path": "docs/api/v2/bluejay/creator/1793896340.json",
+      "url": "https://raw.githubusercontent.com/Jayjay3623/QuiltOS-OTA/main/docs/api/v2/bluejay/creator/1793896340.json",
+      "complete": true,
+      "offers": []
+    }
+  ],
+  "limitations": [
+    "No physical-device installation test",
+    "Existing development keys and SPL 2026-08-01 unchanged",
+    "No formal commercial legal or security certification"
+  ]
+}
