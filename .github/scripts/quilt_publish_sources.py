@@ -1,5 +1,5 @@
 """Publish only checksum-pinned Quilt source/notice assets, then verify GitHub digests."""
-import argparse,hashlib,json,os,pathlib,re,subprocess,time,urllib.request,urllib.parse,urllib.error
+import argparse,base64,hashlib,json,os,pathlib,re,subprocess,time,urllib.request,urllib.parse,urllib.error
 REPO='Jayjay3623/QuiltOS-OTA'
 BUILDS={'cheetah':'1793891372','panther':'1793892852','bluejay':'1793896340'}
 EXPECTED_COUNT=399
@@ -12,6 +12,15 @@ manifest_sha=os.environ['SOURCE_MANIFEST_SHA'];sums_sha=os.environ['SOURCE_SUMS_
 def gh(*args,json_output=False):
  result=subprocess.check_output(['gh',*args],text=True)
  return json.loads(result) if json_output else result
+
+def refresh_base():
+ global base
+ # Only the transport address is mutable; manifests and file hashes stay pinned.
+ response=gh('api','repos/'+REPO+'/contents/.github/quilt-artifact-transfer.json?ref=main',json_output=True)
+ locator=json.loads(base64.b64decode(response['content']))
+ assert locator['source_tag']==tag and locator['source_manifest_sha256']==manifest_sha
+ assert re.fullmatch(r'https://[a-z0-9-]+\.trycloudflare\.com',locator['source_base'])
+ base=locator['source_base']
 
 def download(name,sha,size=None):
  assert re.fullmatch(r'[A-Za-z0-9_.+-]+',name) and re.fullmatch(r'[0-9a-f]{64}',sha)
@@ -31,7 +40,9 @@ def download(name,sha,size=None):
   except Exception:
    partial.unlink(missing_ok=True)
    if attempt==3:raise
+   refresh_base()
    time.sleep([2,5,15][attempt])
+refresh_base()
 manifest_path=download('SOURCE-ARTIFACTS.json',manifest_sha,148459)
 manifest=json.loads(manifest_path.read_text())
 assert manifest['builds']==BUILDS and manifest['asset_count']==EXPECTED_COUNT
