@@ -12,7 +12,7 @@ concurrency:
 env:
   GH_TOKEN: ${{ github.token }}
   GH_REPO: ${{ github.repository }}
-  SOURCE_SCRIPT_REF: 6cfd80b622b4de1332fe9525d8caa08bb4c5da07
+  SOURCE_SCRIPT_REF: 20edc244aeadd71268ebd307a9e810d8d8b466cf
   SOURCE_BASE: https://qty-kansas-exceed-prior.trycloudflare.com
   SOURCE_TAG: sources-native-notices-1793891372-1793892852-1793896340
   SOURCE_MANIFEST_SHA: 5298703b11e3a6b5b42279146af33e3fbedb36db42e51e86f97140a8ae904a95
@@ -26,7 +26,7 @@ jobs:
         run: |
           set -euo pipefail
           gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${SOURCE_SCRIPT_REF}" --jq .content | base64 --decode > publisher.py
-          echo '67e8e38f25430bd04319a37b7f2b0389da356a0c8c590ffacc56b1877a461024  publisher.py' | sha256sum --check
+          echo '0e6383fddeb8b3e4fe12e419e873e175b8d6e12cf54c364a67d2dbf59cf687f6  publisher.py' | sha256sum --check
       - name: Create draft and upload pinned source catalog
         run: python3 publisher.py create
   upload:
@@ -42,7 +42,7 @@ jobs:
         run: |
           set -euo pipefail
           gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${SOURCE_SCRIPT_REF}" --jq .content | base64 --decode > publisher.py
-          echo '67e8e38f25430bd04319a37b7f2b0389da356a0c8c590ffacc56b1877a461024  publisher.py' | sha256sum --check
+          echo '0e6383fddeb8b3e4fe12e419e873e175b8d6e12cf54c364a67d2dbf59cf687f6  publisher.py' | sha256sum --check
       - name: Verify source bytes and upload assigned assets
         run: python3 publisher.py upload --shard '${{ matrix.shard }}'
   publish:
@@ -54,7 +54,7 @@ jobs:
         run: |
           set -euo pipefail
           gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${SOURCE_SCRIPT_REF}" --jq .content | base64 --decode > publisher.py
-          echo '67e8e38f25430bd04319a37b7f2b0389da356a0c8c590ffacc56b1877a461024  publisher.py' | sha256sum --check
+          echo '0e6383fddeb8b3e4fe12e419e873e175b8d6e12cf54c364a67d2dbf59cf687f6  publisher.py' | sha256sum --check
       - name: Verify all GitHub asset digests and publish source delivery
         run: python3 publisher.py publish
   handoff:
