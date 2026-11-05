@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "device": "panther",
+  "variant": "android17",
+  "base_incremental": "1793892852",
+  "response": [],
+  "notes": "No newer corrected release is published."
+}
