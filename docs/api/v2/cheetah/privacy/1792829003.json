@@ -3,6 +3,26 @@
   "device": "cheetah",
   "variant": "privacy",
   "base_incremental": "1792829003",
-  "response": [],
-  "notes": "No newer verified release is published."
+  "response": [
+    {
+      "device": "cheetah",
+      "variant": "privacy",
+      "base_incremental": "1792829003",
+      "incremental": "1793891372",
+      "no_wipe": true,
+      "sha256": "7741c0200367a6c121afd4757522505dad2df4939ddc77e0d3c69c05bdbe6a64",
+      "size": 131726073,
+      "payload_offset": 5383,
+      "payload_size": 131717197,
+      "payload_properties": [
+        "FILE_HASH=1YU5yMlgA1AZ9D4oAxiA/lcDF4xKYF7Koyp6+E+k258=",
+        "FILE_SIZE=131717197",
+        "METADATA_HASH=QQSPDbkfvfTqTEQs65+jCW9Bx/+AgwFYJgJh4/uAp/w=",
+        "METADATA_SIZE=125174"
+      ],
+      "url": "https://storage.googleapis.com/quiltos-releases-90894374281/otas/native-notices/quilt-cheetah-1793891372-from-1792829003.zip",
+      "installation": "user_confirmation",
+      "notes": "License notices and service substitutions; opt-in automatic crash-category reporting. Experimental Android 17, development keys, SPL 2026-08-01. Exact base 1792829003 only; physical installation not tested. Source and notices: https://github.com/Jayjay3623/QuiltOS-OTA/releases/tag/sources-native-notices-1793891372-1793892852-1793896340"
+    }
+  ]
 }
