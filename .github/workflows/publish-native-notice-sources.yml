@@ -12,6 +12,7 @@ concurrency:
 env:
   GH_TOKEN: ${{ github.token }}
   GH_REPO: ${{ github.repository }}
+  SOURCE_SCRIPT_REF: fa97982d85659bdb8249da76d9a3aa996ab30cef
   SOURCE_BASE: https://qty-kansas-exceed-prior.trycloudflare.com
   SOURCE_TAG: sources-native-notices-1793891372-1793892852-1793896340
   SOURCE_MANIFEST_SHA: 5298703b11e3a6b5b42279146af33e3fbedb36db42e51e86f97140a8ae904a95
@@ -24,7 +25,7 @@ jobs:
       - name: Fetch and verify committed publisher
         run: |
           set -euo pipefail
-          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${GITHUB_SHA}" --jq .content | base64 --decode > publisher.py
+          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${SOURCE_SCRIPT_REF}" --jq .content | base64 --decode > publisher.py
           echo '10fcfdf41eadcafdc91fca9e2c1e8d66ab1a6c4c2121b6efc4c97d1b1bd05144  publisher.py' | sha256sum --check
       - name: Create draft and upload pinned source catalog
         run: python3 publisher.py create
@@ -40,7 +41,7 @@ jobs:
       - name: Fetch and verify committed publisher
         run: |
           set -euo pipefail
-          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${GITHUB_SHA}" --jq .content | base64 --decode > publisher.py
+          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${SOURCE_SCRIPT_REF}" --jq .content | base64 --decode > publisher.py
           echo '10fcfdf41eadcafdc91fca9e2c1e8d66ab1a6c4c2121b6efc4c97d1b1bd05144  publisher.py' | sha256sum --check
       - name: Verify source bytes and upload assigned assets
         run: python3 publisher.py upload --shard '${{ matrix.shard }}'
@@ -52,7 +53,7 @@ jobs:
       - name: Fetch and verify committed publisher
         run: |
           set -euo pipefail
-          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${GITHUB_SHA}" --jq .content | base64 --decode > publisher.py
+          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${SOURCE_SCRIPT_REF}" --jq .content | base64 --decode > publisher.py
           echo '10fcfdf41eadcafdc91fca9e2c1e8d66ab1a6c4c2121b6efc4c97d1b1bd05144  publisher.py' | sha256sum --check
       - name: Verify all GitHub asset digests and publish source delivery
         run: python3 publisher.py publish
