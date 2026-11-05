@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "device": "panther",
+  "variant": "android17",
+  "base_incremental": "1793198660",
+  "response": [
+    {
+      "device": "panther",
+      "variant": "android17",
+      "base_incremental": "1793198660",
+      "incremental": "1793892852",
+      "no_wipe": true,
+      "sha256": "0fe8782000eaaab0cba32f39dda98a1c9ba26014175b33539acc8c5aeef88557",
+      "size": 227579042,
+      "payload_offset": 5368,
+      "payload_size": 227570181,
+      "payload_properties": [
+        "FILE_HASH=aOkC51edWJCEVfFD3pPeZ6j+JviJbsVU0Wfgkw2PfPM=",
+        "FILE_SIZE=227570181",
+        "METADATA_HASH=iCk58or68PdT0fBRsXVH9MtTpRWczGolto8yfWEVnRQ=",
+        "METADATA_SIZE=133890"
+      ],
+      "url": "https://storage.googleapis.com/quiltos-releases-90894374281/otas/native-notices/quilt-panther-1793892852-from-1793198660.zip",
+      "installation": "user_confirmation",
+      "notes": "License notices and service substitutions; opt-in automatic crash-category reporting. Experimental Android 17, development keys, SPL 2026-08-01. Exact base 1793198660 only; physical installation not tested. Source and notices: https://github.com/Jayjay3623/QuiltOS-OTA/releases/tag/sources-native-notices-1793891372-1793892852-1793896340"
+    }
+  ]
+}
