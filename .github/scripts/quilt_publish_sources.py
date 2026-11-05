@@ -1,5 +1,5 @@
 """Publish only checksum-pinned Quilt source/notice assets, then verify GitHub digests."""
-import argparse,hashlib,json,os,pathlib,re,subprocess,time,urllib.request
+import argparse,hashlib,json,os,pathlib,re,subprocess,time,urllib.request,urllib.parse,urllib.error
 REPO='Jayjay3623/QuiltOS-OTA'
 BUILDS={'cheetah':'1793891372','panther':'1793892852','bluejay':'1793896340'}
 EXPECTED_COUNT=399
@@ -52,10 +52,45 @@ if a.mode=='create':
 elif a.mode=='upload':
  assert 0<=a.shard<4
  selected=[x for i,x in enumerate(manifest['assets']) if i%4==a.shard]
+ release=gh('api','repos/'+REPO+'/releases/tags/'+tag,json_output=True)
+ assert release['draft'],'Refuse to change a published source release'
+ endpoint=release['upload_url'].split('{',1)[0]
+ assert endpoint=='https://uploads.github.com/repos/'+REPO+'/releases/'+str(release['id'])+'/assets'
+ existing={};page=1
+ while True:
+  batch=gh('api','repos/'+REPO+'/releases/'+str(release['id'])+'/assets?per_page=100&page='+str(page),json_output=True)
+  existing.update({x['name']:x for x in batch})
+  if len(batch)<100:break
+  page+=1
+ class NoRedirect(urllib.request.HTTPRedirectHandler):
+  def redirect_request(self,*args,**kwargs):raise RuntimeError('Refuse to redirect an authenticated upload')
+ opener=urllib.request.build_opener(NoRedirect())
+ last_upload=0.0
  for i,row in enumerate(selected):
-  asset=download(row['asset'],row['sha256'],row['bytes'])
-  subprocess.run(['gh','release','upload',tag,str(asset),'--repo',REPO,'--clobber'],check=True)
-  asset.unlink();print('Verified and uploaded',i+1,'/',len(selected),row['asset'],flush=True)
+  name=row['asset'];old=existing.get(name)
+  if old and old['state']=='uploaded' and old['size']==row['bytes'] and old.get('digest')=='sha256:'+row['sha256']:
+   print('Preserved verified uploaded asset',name,flush=True);continue
+  if old:
+   # Only this draft's expected asset is replaced; originals remain on the build VM.
+   gh('api','--method','DELETE','repos/'+REPO+'/releases/assets/'+str(old['id']))
+  asset=download(name,row['sha256'],row['bytes'])
+  for attempt in range(4):
+   delay=5-(time.monotonic()-last_upload)
+   if delay>0:time.sleep(delay)
+   try:
+    with asset.open('rb') as content:
+     req=urllib.request.Request(endpoint+'?'+urllib.parse.urlencode({'name':name}),data=content,method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2026-03-10','Content-Type':'application/octet-stream','Content-Length':str(row['bytes']),'User-Agent':'Quilt-pinned-source-publisher'})
+     with opener.open(req,timeout=600) as response:uploaded=json.load(response)
+    last_upload=time.monotonic()
+    assert uploaded['name']==name and uploaded['size']==row['bytes'] and uploaded['state']=='uploaded'
+    assert uploaded.get('digest') in (None,'sha256:'+row['sha256'])
+    break
+   except urllib.error.HTTPError as error:
+    last_upload=time.monotonic()
+    if error.code not in (403,429) or attempt==3:raise
+    # Respect server backoff and keep four shards below secondary write limits.
+    time.sleep(max(60,min(300,int(error.headers.get('Retry-After','60')))))
+  asset.unlink();print('Verified and uploaded',i+1,'/',len(selected),name,flush=True)
 else:
  release=gh('api','repos/'+REPO+'/releases/tags/'+tag,json_output=True)
  assert release['draft'] and release['prerelease']
