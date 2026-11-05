@@ -1,0 +1,58 @@
+name: Publish corrected Quilt OTAs and exact-base feeds
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-native-notice-otas.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: quilt-corrected-native-notice-otas
+  cancel-in-progress: false
+env:
+  GH_TOKEN: ${{ github.token }}
+  GH_REPO: ${{ github.repository }}
+  SOURCE_BASE: https://qty-kansas-exceed-prior.trycloudflare.com
+  SOURCE_TAG: sources-native-notices-1793891372-1793892852-1793896340
+  OTA_MANIFEST_SHA: d3227caad7ad8b561289d0f3bc9aeb4120c8383662038959dca91be98b6ef7b1
+  OTA_SCRIPT_REF: e6e57f339ca9515040cb3140f61fcbc4486626e6
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Fetch and verify the committed publisher
+        run: |
+          set -euo pipefail
+          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_otas.py?ref=${OTA_SCRIPT_REF}" --jq .content | base64 --decode > publisher.py
+          echo '3cd0134968f648db54420fb8f7c5156d08545c3571370c26303b6283c7e2cf91  publisher.py' | sha256sum --check
+      - name: Verify published sources and prepare the three release drafts
+        run: python3 publisher.py create
+  upload:
+    needs: create
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        device: [cheetah, panther, bluejay]
+    steps:
+      - name: Fetch and verify the committed publisher
+        run: |
+          set -euo pipefail
+          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_otas.py?ref=${OTA_SCRIPT_REF}" --jq .content | base64 --decode > publisher.py
+          echo '3cd0134968f648db54420fb8f7c5156d08545c3571370c26303b6283c7e2cf91  publisher.py' | sha256sum --check
+      - name: Verify and upload the exact device package and evidence
+        run: python3 publisher.py upload --device '${{ matrix.device }}'
+  publish:
+    needs: upload
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Fetch and verify the committed publisher
+        run: |
+          set -euo pipefail
+          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_otas.py?ref=${OTA_SCRIPT_REF}" --jq .content | base64 --decode > publisher.py
+          echo '3cd0134968f648db54420fb8f7c5156d08545c3571370c26303b6283c7e2cf91  publisher.py' | sha256sum --check
+      - name: Verify all release assets, publish, and atomically update the six feeds
+        run: python3 publisher.py publish
