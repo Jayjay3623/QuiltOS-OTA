@@ -58,3 +58,31 @@ jobs:
           echo '10fcfdf41eadcafdc91fca9e2c1e8d66ab1a6c4c2121b6efc4c97d1b1bd05144  publisher.py' | sha256sum --check
       - name: Verify all GitHub asset digests and publish source delivery
         run: python3 publisher.py publish
+  handoff:
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Wait for the pinned three-device OTA publisher and dispatch it
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 80); do
+            if gh api "repos/${GH_REPO}/contents/.github/workflows/publish-native-notice-otas.yml?ref=main" --jq .content 2>/dev/null | base64 --decode > ota-workflow.yml; then
+              python3 - <<'PY'
+          import pathlib,re
+          text=pathlib.Path('ota-workflow.yml').read_text()
+          assert 'SOURCE_TAG: sources-native-notices-1793891372-1793892852-1793896340' in text
+          assert re.search(r'OTA_MANIFEST_SHA: [0-9a-f]{64}',text)
+          PY
+              gh workflow run publish-native-notice-otas.yml --repo "$GH_REPO" --ref main
+              echo 'Dispatched the pinned three-device OTA publisher.'
+              exit 0
+            fi
+            echo 'Waiting for the three verified OTA packages and their pinned publisher.'
+            sleep 60
+          done
+          echo 'OTA publisher was not prepared within this source run window.' >&2
+          exit 1
