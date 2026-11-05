@@ -1,0 +1,58 @@
+name: Publish corrected Quilt sources and notices
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-native-notice-sources.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: quilt-corrected-native-notice-sources
+  cancel-in-progress: false
+env:
+  GH_TOKEN: ${{ github.token }}
+  GH_REPO: ${{ github.repository }}
+  SOURCE_BASE: https://qty-kansas-exceed-prior.trycloudflare.com
+  SOURCE_TAG: sources-native-notices-1793891372-1793892852-1793896340
+  SOURCE_MANIFEST_SHA: 5298703b11e3a6b5b42279146af33e3fbedb36db42e51e86f97140a8ae904a95
+  SOURCE_SUMS_SHA: 55f9bc7e2a6f4dfbb53427abaa3e395a878d937b971b3b54c222f69cfc23ba0f
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Fetch and verify committed publisher
+        run: |
+          set -euo pipefail
+          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${GITHUB_SHA}" --jq .content | base64 --decode > publisher.py
+          echo '10fcfdf41eadcafdc91fca9e2c1e8d66ab1a6c4c2121b6efc4c97d1b1bd05144  publisher.py' | sha256sum --check
+      - name: Create draft and upload pinned source catalog
+        run: python3 publisher.py create
+  upload:
+    needs: create
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    steps:
+      - name: Fetch and verify committed publisher
+        run: |
+          set -euo pipefail
+          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${GITHUB_SHA}" --jq .content | base64 --decode > publisher.py
+          echo '10fcfdf41eadcafdc91fca9e2c1e8d66ab1a6c4c2121b6efc4c97d1b1bd05144  publisher.py' | sha256sum --check
+      - name: Verify source bytes and upload assigned assets
+        run: python3 publisher.py upload --shard '${{ matrix.shard }}'
+  publish:
+    needs: upload
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Fetch and verify committed publisher
+        run: |
+          set -euo pipefail
+          gh api "repos/${GH_REPO}/contents/.github/scripts/quilt_publish_sources.py?ref=${GITHUB_SHA}" --jq .content | base64 --decode > publisher.py
+          echo '10fcfdf41eadcafdc91fca9e2c1e8d66ab1a6c4c2121b6efc4c97d1b1bd05144  publisher.py' | sha256sum --check
+      - name: Verify all GitHub asset digests and publish source delivery
+        run: python3 publisher.py publish
