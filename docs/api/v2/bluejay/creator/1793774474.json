@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "device": "bluejay",
+  "variant": "creator",
+  "base_incremental": "1793774474",
+  "response": [
+    {
+      "device": "bluejay",
+      "variant": "creator",
+      "base_incremental": "1793774474",
+      "incremental": "1793896340",
+      "no_wipe": true,
+      "sha256": "405b495073c3fd310cf6760e966e69b5ec62ba95622670712dd7c85f5d3a157a",
+      "size": 128000158,
+      "payload_offset": 4960,
+      "payload_size": 127991705,
+      "payload_properties": [
+        "FILE_HASH=eplMXvgjEtAYALRfO0Bpt2RqtnUWWNBLlrLNbet5MKY=",
+        "FILE_SIZE=127991705",
+        "METADATA_HASH=6RU94RN7gL/Qqse+xjcbWc/m6AtmhJ1GkDtdkpYuc+Y=",
+        "METADATA_SIZE=121440"
+      ],
+      "url": "https://storage.googleapis.com/quiltos-releases-90894374281/otas/native-notices/quilt-bluejay-1793896340-from-1793774474.zip",
+      "installation": "user_confirmation",
+      "notes": "License notices and service substitutions; opt-in automatic crash-category reporting. Experimental Android 17, development keys, SPL 2026-08-01. Exact base 1793774474 only; physical installation not tested. Source and notices: https://github.com/Jayjay3623/QuiltOS-OTA/releases/tag/sources-native-notices-1793891372-1793892852-1793896340"
+    }
+  ]
+}
