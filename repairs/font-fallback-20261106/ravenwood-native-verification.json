@@ -1,0 +1,37 @@
+{
+  "scope": "Ravenwood host Android execution with native text measurement, not a physical phone boot or installation test",
+  "completed_utc": "2026-11-06T17:59:42.024575+00:00",
+  "command": "--host --no-metrics --disable-upload-result -j4 FrameworksCoreTestsRavenwood:android.graphics.TypefaceTest",
+  "result_directory": "/tmp/atest_result_quilt/20261106_175406_7ecu6x14",
+  "required_regression": "android.graphics.TypefaceTest#testRuntimeFontFallbackCannotCreatePlaceholderCycle",
+  "required_regression_passed": true,
+  "passed": 8,
+  "failed": 0,
+  "ignored": 0,
+  "assumption_failed": [
+    {
+      "test": "testSerialize",
+      "reason": "Existing @DisabledOnRavenwood(blockedBy = SharedMemory.class) annotation"
+    }
+  ],
+  "source_and_artifact_sha256": {
+    "Typeface.java": "fa73a0c038720dce76f514befedc961e259cf2a0b18c1cef68f57f03538cc92d",
+    "TypefaceTest.java": "a5fd0f339679f28d86ff30f936e946207d7470093b8a3b9dc3679437c66fff72",
+    "host_test_jar": "2ba15f0c421b6669161faa7acf286aa1c94f9d7c8c9aee14f6d819736f4373c6",
+    "host_support_patch": "84d1bcbc1a115bb9bec7a0427280507d164efddf2cdb07f883195d5bec4c7e96",
+    "runner": "20ae8956567b1913611626ea91e06db6f7255fcc30af17820a626f9108a9c0c2",
+    "log": "827a155da8e3ec09ce86d73a6d1c0e9bee1284c667680be488917e2815e5e2f7"
+  },
+  "test_result_sha256": "5074f7a222de7cfb784e65549788262da946102de52ec027c4b75a9fa53d1970",
+  "logs_archive_sha256": "19ab58e38d60bc1805b494b426c6cdb5375dcbba4da2b39c39864f7991cfd1f2",
+  "host_rom_resource_fixture": {
+    "scope": "Cloud host test resource fixture; no phone or firmware changes",
+    "source_archive_sha256": "09bceb32dba101fdd20144cbf34c4d3a19929a04324632cee541f1ec02b3d508",
+    "archive_member": "SYSTEM/framework/org.lineageos.platform-res.apk",
+    "host_path": "/system/framework/org.lineageos.platform-res.apk",
+    "apk_sha256": "b128a53238193f3991fb7aeda4cced0c7faafab71ba23321fffeca713ff3aa3f",
+    "bytes": 301131
+  },
+  "physical_device_installation_tested": false,
+  "complete": true
+}
