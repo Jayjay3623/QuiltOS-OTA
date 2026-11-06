@@ -1,0 +1,17 @@
+{
+  "complete": true,
+  "public_base_asset": "android--frameworks-base-current-source.tar.gz",
+  "public_base_archive_sha256": "1ebad444313bc5e05f3ae747575710e5a3861f8128721a022773fe0e032355a7",
+  "matching_original_files": {
+    "core/tests/coretests/src/android/graphics/TypefaceTest.java": {
+      "archive_member": "core/tests/coretests/src/android/graphics/TypefaceTest.java",
+      "sha256": "800c0cf6a0faabdca722352789096fe214ed466af7e22ef470c0f78129d63f01"
+    },
+    "graphics/java/android/graphics/Typeface.java": {
+      "archive_member": "graphics/java/android/graphics/Typeface.java",
+      "sha256": "0c887c94a63fa858497ab9325e1467b14d4a84c1e4e18e4d4efe61d86487a862"
+    }
+  },
+  "patch_sha256": "4fd3b87a74b54acf79894560d198324b326d75c02254cc6d70a7626d2c2b0f29",
+  "scope": "Patch applies to the exact source files in the existing public source archive; binary/runtime verification separate"
+}
