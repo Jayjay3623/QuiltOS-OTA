@@ -3,7 +3,26 @@
   "device": "bluejay",
   "variant": "creator",
   "base_incremental": "1793774474",
-  "response": [],
-  "withdrawn_incremental": "1793896340",
-  "notes": "Update withdrawn: shared Typeface font-fallback reference cycle can cause boot failure. Replacements are being built and validated. Do not install the withdrawn build."
+  "response": [
+    {
+      "device": "bluejay",
+      "variant": "creator",
+      "base_incremental": "1793774474",
+      "incremental": "1793983321",
+      "no_wipe": true,
+      "sha256": "20b2334c56ff2b96c4a6bcda30832939b014ee64f5bef6797c56e4e575ed925a",
+      "size": 129351470,
+      "payload_offset": 4960,
+      "payload_size": 129343017,
+      "payload_properties": [
+        "FILE_HASH=phMrSCnU1neODGkQZehUoUs8O88zJgChmXeGT9TchKU=",
+        "FILE_SIZE=129343017",
+        "METADATA_HASH=hCA9FOQiVSgItQGwEuglmskjSfLWxcwDo6TB6k4SZic=",
+        "METADATA_SIZE=169450"
+      ],
+      "url": "https://github.com/Jayjay3623/QuiltOS-OTA/releases/download/bluejay-font-fallback-fix-1793983321/quilt-bluejay-1793983321-from-1793774474.zip",
+      "installation": "user_confirmation",
+      "notes": "Fix recursive Typeface fallback that caused boot failure. License notices and service substitutions; opt-in automatic crash-category reporting. Experimental Android 17, development keys, SPL 2026-08-01. Exact base 1793774474 only; physical installation not tested. Source and notices: https://github.com/Jayjay3623/QuiltOS-OTA/releases/tag/sources-native-notices-1793891372-1793892852-1793896340; matching repair source: https://github.com/Jayjay3623/QuiltOS-OTA/tree/main/repairs/font-fallback-20261106"
+    }
+  ]
 }

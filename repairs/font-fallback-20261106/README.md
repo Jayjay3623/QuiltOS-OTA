@@ -1,6 +1,6 @@
 # Quilt font fallback boot-loop correction
 
-This source addendum covers Pixel 7 (`panther`), Pixel 7 Pro (`cheetah`), and Pixel 6a (`bluejay`). All three replacement target archives have been rebuilt and checked; OTA packaging and final release validation are still in progress. This directory is source code and test evidence, not an installable update or a claim of successful hardware boot testing.
+This source addendum covers Pixel 7 (`panther`), Pixel 7 Pro (`cheetah`), and Pixel 6a (`bluejay`). All three corrected updates have been built, signed, published and verified by anonymous download. The feeds offer them only to their exact required baseline builds. This directory is source code and test evidence, not an installable update or a claim of successful hardware boot testing.
 
 The withdrawn builds are panther 1793892852, cheetah 1793891372, and bluejay 1793896340. Do not install them. Their updater offers are disabled and their release pages carry withdrawal notices.
 
@@ -47,3 +47,13 @@ RAVENWOOD_ENABLE_EXP_API=1 RAVENWOOD_LOG_EXP_API=1 \
 ```
 
 Do not interpret the test runner's generic “1 device” summary as a physical installation: this invocation uses `--host` and the x86_64 Ravenwood module.
+
+## Corrected releases
+
+| Device | Required baseline | Corrected build | Release |
+|---|---|---|---|
+| panther | 1793198660 | 1793981118 | [Download and verification](https://github.com/Jayjay3623/QuiltOS-OTA/releases/tag/panther-font-fallback-fix-1793981118) |
+| cheetah | 1792829003 | 1793982551 | [Download and verification](https://github.com/Jayjay3623/QuiltOS-OTA/releases/tag/cheetah-font-fallback-fix-1793982551) |
+| bluejay | 1793774474 | 1793983321 | [Download and verification](https://github.com/Jayjay3623/QuiltOS-OTA/releases/tag/bluejay-font-fallback-fix-1793983321) |
+
+Each release includes its verification report, SHA-256 checksums and the shared artifact manifest. Payload signatures and recovery whole-file signatures passed, including rejection with the wrong certificate and modified content. Every updated partition was reconstructed and matched its target image. Retained OEM file data uses baseline source-copy operations. The native font regression passed on the host; no physical installation or boot test was performed. The attached phone was left untouched. These releases retain development keys and security patch level 2026-08-01 and remain experimental.

@@ -3,7 +3,26 @@
   "device": "cheetah",
   "variant": "privacy",
   "base_incremental": "1792829003",
-  "response": [],
-  "withdrawn_incremental": "1793891372",
-  "notes": "Update withdrawn: shared Typeface font-fallback reference cycle can cause boot failure. Replacements are being built and validated. Do not install the withdrawn build."
+  "response": [
+    {
+      "device": "cheetah",
+      "variant": "privacy",
+      "base_incremental": "1792829003",
+      "incremental": "1793982551",
+      "no_wipe": true,
+      "sha256": "4a751c75b7d337a73398c45da5f54687cb1106197439138526ae33bd61e82057",
+      "size": 133076972,
+      "payload_offset": 5383,
+      "payload_size": 133068096,
+      "payload_properties": [
+        "FILE_HASH=UkxECcJOqQE6lyT91qYNQx2yQIf9d1cvivUStiDbnK8=",
+        "FILE_SIZE=133068096",
+        "METADATA_HASH=UefpF/SuH17YLKn+owbwIMQdvxIqfwbdjt1arb21Ev4=",
+        "METADATA_SIZE=173221"
+      ],
+      "url": "https://github.com/Jayjay3623/QuiltOS-OTA/releases/download/cheetah-font-fallback-fix-1793982551/quilt-cheetah-1793982551-from-1792829003.zip",
+      "installation": "user_confirmation",
+      "notes": "Fix recursive Typeface fallback that caused boot failure. License notices and service substitutions; opt-in automatic crash-category reporting. Experimental Android 17, development keys, SPL 2026-08-01. Exact base 1792829003 only; physical installation not tested. Source and notices: https://github.com/Jayjay3623/QuiltOS-OTA/releases/tag/sources-native-notices-1793891372-1793892852-1793896340; matching repair source: https://github.com/Jayjay3623/QuiltOS-OTA/tree/main/repairs/font-fallback-20261106"
+    }
+  ]
 }

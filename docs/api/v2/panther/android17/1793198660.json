@@ -3,7 +3,26 @@
   "device": "panther",
   "variant": "android17",
   "base_incremental": "1793198660",
-  "response": [],
-  "withdrawn_incremental": "1793892852",
-  "notes": "Update withdrawn: shared Typeface font-fallback reference cycle can cause boot failure. Replacements are being built and validated. Do not install the withdrawn build."
+  "response": [
+    {
+      "device": "panther",
+      "variant": "android17",
+      "base_incremental": "1793198660",
+      "incremental": "1793981118",
+      "no_wipe": true,
+      "sha256": "794861c30737fdd22ecc7af79975512d9552bdc219f27a0cb92214128d66585f",
+      "size": 228921988,
+      "payload_offset": 5368,
+      "payload_size": 228913127,
+      "payload_properties": [
+        "FILE_HASH=QEo6RMqvvHAb4mxg9Oj15orFAHfU22YOk78yGvzAyk0=",
+        "FILE_SIZE=228913127",
+        "METADATA_HASH=WYbWZn0csqbP8lvGMWDuu9jsz4er23Idp0jYecwJt4s=",
+        "METADATA_SIZE=182262"
+      ],
+      "url": "https://github.com/Jayjay3623/QuiltOS-OTA/releases/download/panther-font-fallback-fix-1793981118/quilt-panther-1793981118-from-1793198660.zip",
+      "installation": "user_confirmation",
+      "notes": "Fix recursive Typeface fallback that caused boot failure. License notices and service substitutions; opt-in automatic crash-category reporting. Experimental Android 17, development keys, SPL 2026-08-01. Exact base 1793198660 only; physical installation not tested. Source and notices: https://github.com/Jayjay3623/QuiltOS-OTA/releases/tag/sources-native-notices-1793891372-1793892852-1793896340; matching repair source: https://github.com/Jayjay3623/QuiltOS-OTA/tree/main/repairs/font-fallback-20261106"
+    }
+  ]
 }
