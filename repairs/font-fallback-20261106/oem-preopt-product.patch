@@ -1,0 +1,27 @@
+--- a/vendor/google/panther/panther-vendor.mk
++++ b/vendor/google/panther/panther-vendor.mk
+@@ -2136,3 +2136,6 @@
+     umfw_stat_tool \
+     usf_stats \
+     wfc-pkt-router
++
++# Retain original OEM DEX; generate optimization caches on the installed system.
++$(call add-product-dex-preopt-module-config,libhwinfo RadioConfigLib com.android.hotwordenrollment.common.util google-ril oemrilhook,disable)
+--- a/vendor/google/cheetah/cheetah-vendor.mk
++++ b/vendor/google/cheetah/cheetah-vendor.mk
+@@ -2212,3 +2212,6 @@
+ # The supplied gpuflag binary accepts only ro.board.platform=laguna and writes
+ # that platform's GPU autosuspend node. It is not a gs201 service. Do not ship
+ # its unconditional init action on cheetah or invent a SELinux domain for it.
++
++# Retain original OEM DEX; generate optimization caches on the installed system.
++$(call add-product-dex-preopt-module-config,libhwinfo RadioConfigLib com.android.hotwordenrollment.common.util google-ril oemrilhook,disable)
+--- a/vendor/google/bluejay/bluejay-vendor.mk
++++ b/vendor/google/bluejay/bluejay-vendor.mk
+@@ -1573,3 +1573,6 @@
+     usb_accessory_utils \
+     usf_stats \
+     wfc-pkt-router
++
++# Retain original OEM DEX; generate optimization caches on the installed system.
++$(call add-product-dex-preopt-module-config,libhwinfo RadioConfigLib com.android.hotwordenrollment.common.util google-ril oemrilhook,disable)
