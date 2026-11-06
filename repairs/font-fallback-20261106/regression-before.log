@@ -1,0 +1,8 @@
+Exception in thread "main" java.lang.StackOverflowError
+	at Typeface.getNativeInstance(Typeface.java:29)
+	at Typeface.getNativeInstance(Typeface.java:29)
+	at Typeface.getNativeInstance(Typeface.java:29)
+	at Typeface.getNativeInstance(Typeface.java:29)
+	at Typeface.getNativeInstance(Typeface.java:29)
+	at Typeface.getNativeInstance(Typeface.java:29)
+	at Typeface.getNativeInstance(Typeface.java:29)
