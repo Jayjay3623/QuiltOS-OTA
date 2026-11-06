@@ -1,0 +1,22 @@
+{
+  "devices": [
+    "panther",
+    "cheetah",
+    "bluejay"
+  ],
+  "no_attached_device_reboot_or_power_off": true,
+  "files": {
+    "Typeface.java.before": "0c887c94a63fa858497ab9325e1467b14d4a84c1e4e18e4d4efe61d86487a862",
+    "Typeface.java": "fa73a0c038720dce76f514befedc961e259cf2a0b18c1cef68f57f03538cc92d",
+    "TypefaceTest.java": "a5fd0f339679f28d86ff30f936e946207d7470093b8a3b9dc3679437c66fff72",
+    "font-cycle-fix.patch": "4fd3b87a74b54acf79894560d198324b326d75c02254cc6d70a7626d2c2b0f29",
+    "test-typeface-regression.py": "d13122b1464d85878b2e6000e1668569a962df93d963966b06566e26ff5c0f31",
+    "regression-before.log": "4aaeaa0eaa9857adc59eedf430a98a515aec69bc4ed58ecae91b6c27de6e9b95",
+    "regression-after.log": "80aacf909eba7db533409f43e7beaa7cfeecb5057eeea1585499c06fda0b701b"
+  },
+  "regression_old_source": "StackOverflowError reproduced",
+  "regression_corrected_source": "passed",
+  "physical_device_test_performed": false,
+  "regression_includes_actual_changeFont_method": true,
+  "compiled_verifier_positive_control": "verifier-fixture/positive-control.json (synthetic fixture only)"
+}
