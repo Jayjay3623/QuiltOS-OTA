@@ -1,0 +1,75 @@
+--- a/graphics/java/android/graphics/Typeface.java
++++ b/graphics/java/android/graphics/Typeface.java
+@@ -280,8 +280,27 @@
+                     + " is not a placeholder Typeface, cannot repoint in place.");
+             return false;
+         }
+-        mPendingTypeface.set(resolvedTypeface);
++        mPendingTypeface.set(resolveConcreteTypeface(resolvedTypeface));
+         return true;
++    }
++
++    // Snapshot the concrete font before changing any public placeholder. A fallback can be
++    // DEFAULT or SANS_SERIF itself; storing that placeholder would create a reference cycle.
++    private static Typeface resolveConcreteTypeface(@NonNull Typeface typeface) {
++        if (typeface.mPendingTypeface == null) {
++            return typeface;
++        }
++        java.util.IdentityHashMap<Typeface, Boolean> visited = new java.util.IdentityHashMap<>();
++        while (typeface.mPendingTypeface != null) {
++            if (visited.put(typeface, Boolean.TRUE) != null) {
++                throw new IllegalStateException("Cyclic pending Typeface reference.");
++            }
++            typeface = typeface.mPendingTypeface.get();
++            if (typeface == null) {
++                throw new IllegalStateException("The Typeface is not fully initialized.");
++            }
++        }
++        return typeface;
+     }
+ 
+     /** @hide */
+@@ -1619,7 +1638,7 @@
+         // entries (e.g. google-sans-flex) that may not register in
+         // sSystemFontMap by their list name, falling back through known
+         // aliases to Typeface.DEFAULT.
+-        Typeface tf = FontController.resolveBaseTypeface();
++        Typeface tf = resolveConcreteTypeface(FontController.resolveBaseTypeface());
+ 
+         Typeface tfBold = create(tf, BOLD);
+         Typeface tfItalic = create(tf, ITALIC);
+--- a/core/tests/coretests/src/android/graphics/TypefaceTest.java
++++ b/core/tests/coretests/src/android/graphics/TypefaceTest.java
+@@ -269,4 +269,32 @@
+         // Verify the map was updated.
+         assertEquals(pendingNonExistent, systemFontMapWithFallback.get("non-existent-family"));
+     }
++    @SmallTest
++    @Test
++    public void testRuntimeFontFallbackCannotCreatePlaceholderCycle() throws Exception {
++        Typeface concrete = Typeface.create("sans-serif", Typeface.NORMAL);
++        long expected = concrete.getNativeInstance();
++        Map<String, Typeface> fonts = new HashMap<>();
++        fonts.put("sans-serif", concrete);
++        Typeface first = new Typeface(Typeface.NORMAL, 400, "sans-serif");
++        Typeface.initializePendingTypefaceLocked(first, "sans-serif", fonts);
++        Typeface second = new Typeface(Typeface.NORMAL, 400, "sans-serif");
++        Typeface.initializePendingTypefaceLocked(second, "sans-serif", fonts);
++        java.lang.reflect.Method update = Typeface.class.getDeclaredMethod(
++                "updatePendingTypeface", Typeface.class);
++        update.setAccessible(true);
++        // The default-font fallback may be the very placeholder being updated.
++        assertEquals(true, update.invoke(first, first));
++        assertEquals(expected, first.getNativeInstance());
++        for (int i = 0; i < 100; i++) {
++            update.invoke(first, second);
++            update.invoke(second, first);
++        }
++        assertEquals(expected, first.getNativeInstance());
++        assertEquals(expected, second.getNativeInstance());
++        Paint paint = new Paint();
++        paint.setTypeface(first);
++        assertTrue(paint.measureText("Quilt font fallback") > 0);
++    }
++
+ }
