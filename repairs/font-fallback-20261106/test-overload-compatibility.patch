@@ -1,0 +1,22 @@
+--- a/core/tests/coretests/src/android/graphics/TypefaceSystemFallbackTest.java
++++ b/core/tests/coretests/src/android/graphics/TypefaceSystemFallbackTest.java
+@@ -212,7 +212,7 @@
+         try {
+             fontConfig = FontListParser.parse(
+                     SystemFonts.LEGACY_FONTS_XML, SystemFonts.SYSTEM_FONT_DIR,
+-                    null, TEST_OEM_DIR, null, 0, 0);
++                    (String) null, TEST_OEM_DIR, null, 0, 0);
+         } catch (IOException | XmlPullParserException e) {
+             throw new RuntimeException(e);
+         }
+--- a/core/tests/coretests/src/android/text/FontFallbackSetup.java
++++ b/core/tests/coretests/src/android/text/FontFallbackSetup.java
+@@ -79,7 +79,7 @@
+ 
+         FontConfig fontConfig;
+         try {
+-            fontConfig = FontListParser.parse(testFontsXml, mTestFontsDir, null, null, null, 0, 0);
++            fontConfig = FontListParser.parse(testFontsXml, mTestFontsDir, (String) null, null, null, 0, 0);
+         } catch (IOException | XmlPullParserException e) {
+             throw new RuntimeException(e);
+         }
